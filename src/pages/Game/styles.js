@@ -15,6 +15,8 @@ export const layout = css`
         flex-direction: column;
         justify-content: start;
         align-items: start;
+        flex-shrink: 0;
+
         & > h1 {
             display: flex;
             align-items: center;
@@ -45,29 +47,35 @@ export const layout = css`
 
     }
 
-    & > main {
-        display: flex;
-        flex-wrap: wrap;
+`;
+
+export const cardBoard = (mode, cardCount) => {
+    const columnCount =
+        mode === "hell" ? 12 :
+        mode === "hard" ? 8 :
+        mode === "challenge" && cardCount === 12 ? 4 :
+        mode === "challenge" && cardCount === 16 ? 4 :
+        mode === "challenge" && cardCount === 24 ? 8 :
+        mode === "challenge" && cardCount === 32 ? 8 :
+        mode === "challenge" && cardCount === 40 ? 10 :
+        mode === "challenge" && cardCount === 48 ? 12 :
+        4;
+
+    return css`
+        display: grid;
+        grid-template-columns: repeat(${columnCount}, auto);
         justify-content: center;
-        gap: 15px;
+        align-content: center;
+        gap: clamp(4px, 0.8cqw, 12px);
         box-sizing: border-box;
         margin-top: 20px;
         padding: 20px;
         width: 100%;
-        height: 100%;
-        
-        /* display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 40px;
-        box-sizing: border-box;
-        border-radius: 8px;
-        padding: 20px;
-        width: 600px;
-        height: 250px; */
-    }
-`;
+        flex: 1;
+        overflow: hidden;
+        container-type: inline-size;
+    `;
+};
 
 export const centerContainer = css`
     display: flex;
@@ -79,10 +87,9 @@ export const centerContainer = css`
 
     & > h1 {
         margin: 0;
-        font-size: 70px;
+        font-size: clamp(32px, 7vmin, 70px);
         color: #c5c5c5;
         cursor: default;
-
     }
 
     @keyframes startButton {
@@ -98,7 +105,7 @@ export const centerContainer = css`
 
     & button:first-of-type {
         border: none;
-        font-size: 30px;
+        font-size: clamp(24px, 4vmin, 30px);
         font-weight: 600;
         color: transparent;
         -webkit-text-fill-color: transparent;
@@ -125,7 +132,7 @@ export const centerContainer = css`
 export const backButton = css`
     border: none;
     background-color: transparent;
-    font-size: 30px;
+    font-size: clamp(20px, 4vmin, 30px);
     font-weight: 400;
     text-shadow: 0 0 6px #ffffff33;
     color: #8a8a8a;
@@ -136,4 +143,21 @@ export const backButton = css`
         color: #c5c5c5;
         transform: translateX(-5px);
     }
+`;
+
+export const timeGauge = css`
+    margin-top: 10px;
+    width: 100%;
+    height: clamp(8px, 1.5vmin, 14px);
+    border-radius: 999px;
+    background-color: #333;
+    overflow: hidden;
+`;
+
+export const timeGaugeBar = (ratio) => css`
+    width: ${Math.max(0, Math.min(ratio, 1)) * 100}%;
+    height: 100%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #882431, #6ca381);
+    transition: width 0.1s linear;
 `;

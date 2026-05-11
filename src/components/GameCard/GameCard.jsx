@@ -1,10 +1,10 @@
 import * as s from "./styles"
 
-function GameCard({card, onClick}) {
+function GameCard({card, onClick, mode}) {
     const  { id, content, isOpen } = card
 
     return <>
-        <div css={s.scene} onClick={onClick}>
+        <div css={s.scene(mode)} onClick={onClick}>
             <div css={s.layout(isOpen)}>
                 <div css={s.front}>
                     {content}

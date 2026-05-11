@@ -8,17 +8,17 @@ export const layout = css`
     width: 100%;
     height: 100%;
 
-
     & > header {
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 200px;
+        height: clamp(120px, 22vmin, 200px);
+
         & > h1 {
             display: flex;
             align-items: center;
-            gap: 5px;
-            font-size: 50px;
+            gap: clamp(3px, 1vw, 5px);
+            font-size: clamp(28px, 5vmin, 50px);
             color: transparent;
             -webkit-text-fill-color: transparent;
             background: linear-gradient(90deg,rgba(115, 10, 36, 1) 0%, rgba(131, 166, 109, 1) 100%);
@@ -41,27 +41,26 @@ export const layout = css`
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 40px;
+        gap: clamp(20px, 4vmin, 40px);
         box-sizing: border-box;
         border-radius: 8px;
-        padding: 20px;
-        width: 600px;
-        height: 250px;
+        padding: clamp(12px, 3vmin, 20px);
+        width: clamp(320px, 70vmin, 600px);
+        height: clamp(180px, 30vmin, 250px);
     }
 `;
 
 export const usernameInput = css`
-
     & > input {
         box-sizing: border-box;
         border: none;
         border-radius: 50px;
         outline: none;
-        width: 340px;
-        height: 50px;
+        width: clamp(260px, 45vmin, 340px);
+        height: clamp(40px, 6vmin, 50px);
+        font-size: clamp(18px, 3vmin, 24px);
         padding: 0 10px;
         text-align: center;
-        font-size: 24px;
         color: #c3c3c3;
         background-color: #272727;
         box-shadow: 0 0 10px #5c5c5c55 inset;
@@ -74,17 +73,15 @@ export const usernameInput = css`
         &::placeholder {
             color: #c3c3c3;
         }
-
     }
 `;
 
 export const startButton = css`
-
     & > button {
         border: none;
-        width: 340px;
-        height: 30px;
-        font-size: 40px;
+        width: clamp(260px, 45vmin, 340px);
+        height: clamp(28px, 5vmin, 40px);
+        font-size: clamp(28px, 5vmin, 40px);
         font-weight: 500;
         text-shadow: 0 0 5px #fafafa44;
         color: #c5c5c5;
@@ -103,13 +100,15 @@ export const startButton = css`
 
 export const modeButtons = css`
     display: flex;
-    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: clamp(8px, 2vmin, 15px);
 
     & > button {
         border: none;
         border-radius: 8px;
-        padding: 10px 18px;
-        font-size: 18px;
+        padding: clamp(8px, 1.5vw, 10px) clamp(12px, 2.5vw, 18px);
+        font-size: clamp(14px, 2.2vmin, 18px);
         font-weight: 600;
         color: #c5c5c5;
         background-color: #272727;
