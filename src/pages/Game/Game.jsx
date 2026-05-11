@@ -3,13 +3,30 @@ import * as s from "./styles"
 import { GiCardRandom } from "react-icons/gi";
 import GameCard from "../../components/GameCard/GameCard";
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Game() {
-    const params = useParams();
+    const { mode } = useParams();
+    const username = localStorage.getItem("username");
+
     const [cards, setCards] = useState([]);
     const [started, setStarted] = useState(false);
     const [ timer, setTimer ] = useState(0);
     const timeInterVal = useRef(null);
+    const navigate = useNavigate();
+
+
+    const handleBackOnClick = () => {
+        navigate("/");
+    }
+
+    const modeOptions = {
+        normal: 12,
+        hard: 24,
+        hell: 48,
+    };
+
+    const cardCount = modeOptions[mode] || 12;
 
     const msStr = timer.toString();
     const sec = msStr.substring(0, msStr.length - 3) || 0;
@@ -39,7 +56,7 @@ function Game() {
     useEffect(() => {
         const openCards = cards.filter(card => card.isOpen && !card.isAnswer);
         const answerCards = cards.filter(card => card.isAnswer);
-        if (answerCards.length === 12) {
+        if (answerCards.length === cardCount && cards.length !== 0) {
             setStarted(false);
         }
 
@@ -69,14 +86,14 @@ function Game() {
                 }, 500);
             }
         }
-    }, [cards]);
+    }, [cards, cardCount]);
 
 
     useEffect(() => {
         if (started) {
             let randomNums = [];
 
-            while (randomNums.length < 12) {
+            while (randomNums.length < cardCount) {
                 const newNum = Math.floor((Math.random() * 100) + 1);
 
                 if (randomNums.includes(newNum)) {
@@ -88,7 +105,7 @@ function Game() {
 
             for (let i = 0; i < randomNums.length; i++) {
                 const j = Math.floor(Math.random() * (i + 1));
-                [randomNums[i], randomNums[j]] = [randomNums[j], randomNums[i]]; // 셔플 알고리즘
+                [randomNums[i], randomNums[j]] = [randomNums[j], randomNums[i]];
             }
 
             setCards(randomNums.map((num, index) => ({
@@ -120,7 +137,7 @@ function Game() {
         <div css={s.layout}>
             <header>
                 <h1><GiCardRandom />CARD MATCING GAME<GiCardRandom /></h1>
-                <h3>Player: {params.username} Time: {sec}.{ms}</h3>
+                <h3>Player: {username} Time: {sec}.{ms}</h3>
             </header>
             <main>
                 {
@@ -136,8 +153,12 @@ function Game() {
                                 ? <button onClick={handleStartOnClick}>게임시작</button>
                                 : <button onClick={handleStartOnClick}>다시하기</button>
                             }
+
+                            <button css={s.backButton} onClick={handleBackOnClick}>뒤로가기</button>
                         </div>
                 }
+
+                
             </main>
         </div>
     </>

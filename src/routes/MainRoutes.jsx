@@ -6,7 +6,7 @@ function MainRoutes() {
     return (
         <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/game/:username" element={<Game />} />
+            <Route path="/game/:mode" element={<Game />} />
         </Routes>
     );
 }

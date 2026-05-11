@@ -8,10 +8,17 @@ import { useNavigate } from "react-router-dom";
 function Home() {
     const navigate = useNavigate();
     const [inputValue, setInputValue] = useState("");
+    const [showModeSelect, setShowModeSelect] = useState(false);
+
 
     const handleInputOnChange = (e) => {
         setInputValue(e.target.value);
     }
+
+    const handleModeOnClick = (mode) => {
+        navigate(`/game/${mode}`);
+    }
+
 
     const handleStartOnClick = () => {
         if (!inputValue.trim()) {
@@ -23,7 +30,8 @@ function Home() {
             }); 
             return;
         }
-        navigate(`/game/${inputValue}`);
+        localStorage.setItem("username", inputValue);
+        setShowModeSelect(true);
     }
 
     return <>
@@ -35,9 +43,35 @@ function Home() {
                 <div css={s.usernameInput}>
                     <input type="text" placeholder="플레이어 이름" value={inputValue} onChange={handleInputOnChange} />
                 </div>
-                <div css={s.startButton}>
-                    <button onClick={handleStartOnClick}>시작하기</button>
-                </div>
+
+                {
+                    showModeSelect &&
+                    <div css={s.modeButtons}>
+                        <button onClick={() => handleModeOnClick("normal")}>
+                            NORMAL
+                        </button>
+
+                        <button onClick={() => handleModeOnClick("hard")}>
+                            HARD
+                        </button>
+
+                        <button onClick={() => handleModeOnClick("hell")}>
+                            HELL
+                        </button>
+
+                        <button onClick={() => handleModeOnClick("challenge")}>
+                            CHALLENGE
+                        </button>
+                    </div>
+                }
+
+                
+                {
+                    !showModeSelect &&
+                    <div css={s.startButton}>
+                        <button onClick={handleStartOnClick}>시작하기</button>
+                    </div>
+                }
             </main>
 
         </div>

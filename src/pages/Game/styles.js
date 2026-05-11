@@ -96,7 +96,7 @@ export const centerContainer = css`
         
     }
 
-    & button {
+    & button:first-of-type {
         border: none;
         font-size: 30px;
         font-weight: 600;
@@ -119,5 +119,21 @@ export const centerContainer = css`
             animation-iteration-count: 0;
             transform: scale(110%);
         }
+    }
+`;
+
+export const backButton = css`
+    border: none;
+    background-color: transparent;
+    font-size: 30px;
+    font-weight: 400;
+    text-shadow: 0 0 6px #ffffff33;
+    color: #8a8a8a;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+        color: #c5c5c5;
+        transform: translateX(-5px);
     }
 `;

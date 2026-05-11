@@ -100,3 +100,40 @@ export const startButton = css`
         }
     }
 `;
+
+export const modeButtons = css`
+    display: flex;
+    gap: 15px;
+
+    & > button {
+        border: none;
+        border-radius: 8px;
+        padding: 10px 18px;
+        font-size: 18px;
+        font-weight: 600;
+        color: #c5c5c5;
+        background-color: #272727;
+        cursor: pointer;
+
+        &:hover {
+            box-shadow: 0 0 10px #fafafa55;
+            transform: scale(1.05);
+        }
+    }
+`;
+
+export const backButton = css`
+    margin-bottom: 15px;
+    border: none;
+    background-color: transparent;
+    font-size: 18px;
+    font-weight: 600;
+    color: #c5c5c5;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+        color: #ffffff;
+        transform: translateX(-3px);
+    }
+`;
